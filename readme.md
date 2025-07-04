@@ -32,10 +32,16 @@ This project implements a Flask API to centralize and calculate employee perform
 - **Response**:
   - Success: `{"token": "<JWT>"}`
   - Error: `{"error": "Invalid credentials"}`
+```json
+{
+	"username": "aline",
+	"password": "xyz"
+}
+```
 
 ### 2. Get Employees
 
-- **URL**: `/api/employees`
+- **URL**: `api/employees/list`
 - **Method**: `GET`
 - **Description**: Retrieves all employees, with data like name, job level, and department.
 - **Authentication**: Requires a JWT token.
@@ -43,16 +49,49 @@ This project implements a Flask API to centralize and calculate employee perform
 - **Response**:
 ```json
 {
-  "user_role": "manager",
-  "employees": [
-    {
-      "id": "1",
-      "name": "John",
-      "job_level": "Senior",
-      "department": "Technology"
-    }
-  ],
-  "total": 10
+	"employees": [
+		{
+			"career_track": "Technical",
+			"id": "emp001",
+			"job_level": "Mid",
+			"name": "João Silva",
+			"time_in_company": 30,
+			"time_in_current_role": 12
+		},
+		{
+			"career_track": "Technical",
+			"id": "emp002",
+			"job_level": "Senior",
+			"name": "Maria Oliveira",
+			"time_in_company": 48,
+			"time_in_current_role": 24
+		},
+		{
+			"career_track": "Management",
+			"id": "emp003",
+			"job_level": "Director",
+			"name": "Carlos Director",
+			"time_in_company": 72,
+			"time_in_current_role": 36
+		},
+		{
+			"career_track": "Technical",
+			"id": "emp004",
+			"job_level": "Junior",
+			"name": "Lucas Martins",
+			"time_in_company": 12,
+			"time_in_current_role": 6
+		},
+		{
+			"career_track": "Menagement",
+			"id": "emp005",
+			"job_level": "Tech Lead",
+			"name": "Aline Costa",
+			"time_in_company": 60,
+			"time_in_current_role": 18
+		}
+	],
+	"total_of_employees": 5
 }
 ```
 
@@ -66,31 +105,88 @@ This project implements a Flask API to centralize and calculate employee perform
 - **Response**:
 ```json
 {
-  "id": "1",
-  "name": "John",
-  "projections": {
-    "Teamwork": {
-      "Never": 2,
-      "Rarely": 3
-    }
-  }
+	"employees": [
+		{
+			"career_track": "Technical",
+			"id": "emp001",
+			"job_level": "Mid",
+			"name": "João Silva",
+			"next_semester_projection": {
+				"Teamwork": {
+					"Collaborates with peers": "Always",
+					"Shares knowledge": "Always"
+				},
+				"Technical Quality": {
+					"Delivers with quality": "Always"
+				}
+			},
+			"time_in_company": 30,
+			"time_in_current_role": 12
+		},
+		{
+			"career_track": "Technical",
+			"id": "emp002",
+			"job_level": "Senior",
+			"name": "Maria Oliveira",
+			"next_semester_projection": {
+				"Leadership": {
+					"Gives constructive feedback": "Always",
+					"Provides clear direction": "Always"
+				},
+				"Teamwork": {
+					"Fosters collaboration": "Always"
+				}
+			},
+			"time_in_company": 48,
+			"time_in_current_role": 24
+		},
+		{
+			"career_track": "Management",
+			"id": "emp003",
+			"job_level": "Director",
+			"name": "Carlos Director",
+			"next_semester_projection": "Not yet evaluated",
+			"time_in_company": 72,
+			"time_in_current_role": 36
+		},
+		{
+			"career_track": "Technical",
+			"id": "emp004",
+			"job_level": "Junior",
+			"name": "Lucas Martins",
+			"next_semester_projection": {
+				"Teamwork": {
+					"Collaborates with peers": "Almost always",
+					"Shares knowledge": "Frequently"
+				},
+				"Technical Quality": {
+					"Delivers with quality": "Almost always"
+				}
+			},
+			"time_in_company": 12,
+			"time_in_current_role": 6
+		},
+		{
+			"career_track": "Menagement",
+			"id": "emp005",
+			"job_level": "Tech Lead",
+			"name": "Aline Costa",
+			"next_semester_projection": {
+				"Leadership": {
+					"Manages complexity": "Always",
+					"Supports team growth": "Always"
+				},
+				"Teamwork": {
+					"Shares knowledge": "Always"
+				}
+			},
+			"time_in_company": 60,
+			"time_in_current_role": 18
+		}
+	],
+	"total_of_employees": 5
 }
 ```
-
-### 4. Add Employee
-
-- **URL**: `/api/employees`
-- **Method**: `POST`
-- **Description**: Adds a new employee to the database.
-- **Authentication**: Requires a JWT token.
-- **Permissions**: Restricted to managers and HR.
-- **Parameters**:
-  - `name` (string) - Employee's name.
-  - `job_level` (string) - Job level (e.g., Junior, Senior).
-  - `department` (string) - Employee's department.
-- **Response**:
-  - Success: `{"message": "Employee added successfully"}`
-  - Error: `{"error": "Failed to add employee"}`
 
 ## Authentication
 
@@ -102,7 +198,7 @@ Authorization: Bearer <your_jwt_token>
 
 **Example using curl**:
 ```bash
-curl -X GET http://127.0.0.1:5000/api/employees \
+curl -X GET http://127.0.0.1:5000/api/my-performance \
   -H "Authorization: Bearer your_jwt_token_here"
 ```
 
