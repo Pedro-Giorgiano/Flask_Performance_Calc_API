@@ -218,8 +218,8 @@ Flask_Performance_Calc_API/
 ├── models.py               # Defines data models (SQLAlchemy).
 ├── routes.py               # Defines the API routes.
 ├── services.py             # Contains functions for projections and other business logic.
-├── requirements.txt        # Project dependencies.
-└── config.py               # Application configuration.
+├── performance_utils.py    # Helper functions for performance calculations, such as calculating projections and handling metrics.
+└── requirements.txt        # Project dependencies.
 ```
 
 ## Installation
